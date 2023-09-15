@@ -4,6 +4,7 @@ import AppContext from '../../context/AppContext';
 import { useParams } from 'react-router-dom';
 import { fetchByID } from '../../api/fetchProducts';
 import formatCurrency from '../../utils/formatCurrency';
+import Loading from '../Loading/Loading';
 
 
 
@@ -20,16 +21,17 @@ function ProductResult(){
   }, []);
 
   return(
+    (loading && <Loading /> ) || (
     <section className='product-card'>
         <img
-        src= {produto.thumbnail}
+        src= {produto.thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
         alt='product'
         className='card-image'
         />
         <div className='Card-info'>
           <h3 className=' card-tile'>{produto.title}</h3>
           <h4 className='card-price'> {formatCurrency(produto.price, 'BRL')}</h4>
-          <span>{}</span>
+          <span>{produto.title}</span>
           <span>Quantidade <button>+</button><button>-</button></span>
           <input placeholder='Digite seu cep'></input><button> calcular frete</button>
           <button>Comprar agora</button>
@@ -37,6 +39,7 @@ function ProductResult(){
 
         </div>
     </section>
+    )
   );
 }
 export default ProductResult;
