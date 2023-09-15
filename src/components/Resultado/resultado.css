@@ -1,0 +1,18 @@
+.product-card {
+    padding: 120px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-image{
+    width: 30%;
+    padding: 10px;
+    display: flex;
+  }
+  .Card-info{
+    padding: 50px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
