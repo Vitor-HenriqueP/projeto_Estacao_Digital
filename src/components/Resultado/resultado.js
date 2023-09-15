@@ -6,6 +6,8 @@ import { fetchByID } from '../../api/fetchProducts';
 import formatCurrency from '../../utils/formatCurrency';
 import Loading from '../Loading/Loading';
 import Counter from '../redux/Counter';
+import Frete from '../Frete/frete'
+import Compra from '../Compra/compra'
 
 
 
@@ -34,9 +36,8 @@ function ProductResult(){
           <h4 className='card-price'> {formatCurrency(produto.price, 'BRL')}</h4>
           <span>{produto.title}</span>
           <Counter/>
-          <input type='number' placeholder='Digite seu cep'></input><button> Calcular frete</button>
-          <button>Comprar agora</button>
-          <button>Adicionar ao carrinho</button>
+          <Frete/>
+          <Compra/>
         </div>
     </section>
     )

@@ -11,6 +11,4 @@ import './assets/toastify-dark-theme.css';
   </div>
   );
 }
-
-
 export default App;
