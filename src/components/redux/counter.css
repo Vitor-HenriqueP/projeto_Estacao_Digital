@@ -1,0 +1,11 @@
+.quant{
+    display: flex;
+    align-items: center;
+}
+.text{
+    border: 1px solid #13aeeb;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    background: rgb(49, 49, 49);
+}

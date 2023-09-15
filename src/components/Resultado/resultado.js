@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchByID } from '../../api/fetchProducts';
 import formatCurrency from '../../utils/formatCurrency';
 import Loading from '../Loading/Loading';
+import Counter from '../redux/Counter';
 
 
 
@@ -29,11 +30,11 @@ function ProductResult(){
         className='card-image'
         />
         <div className='Card-info'>
-          <h3 className=' card-tile'>{produto.title}</h3>
+          <h2 className=' card-tile'>{produto.title}</h2>
           <h4 className='card-price'> {formatCurrency(produto.price, 'BRL')}</h4>
           <span>{produto.title}</span>
-          <span>Quantidade <button>+</button><button>-</button></span>
-          <input placeholder='Digite seu cep'></input><button> calcular frete</button>
+          <Counter/>
+          <input type='number' placeholder='Digite seu cep'></input><button> Calcular frete</button>
           <button>Comprar agora</button>
           <button>Adicionar ao carrinho</button>
 
