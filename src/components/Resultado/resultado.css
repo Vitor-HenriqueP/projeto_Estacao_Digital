@@ -11,11 +11,19 @@
     padding: 10px;
     display: flex;
   }
+  .card-title {
+      width: 600px; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+  }
   .Card-info{
     padding: 50px;
     display: table-column;
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: right;
+    width: 300px;
   }
   .Card-info button{
       background: #13aeeb;

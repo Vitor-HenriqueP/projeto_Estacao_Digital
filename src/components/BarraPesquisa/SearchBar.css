@@ -14,15 +14,18 @@
 }
 
 .pesquisa-input {
-background: none;
+	background: white;
     border: 0;
     outline: 0;
 	font-size: 16px;
 	width: 0;
 	padding: 0;
 	transition: 0.4s;
-	color: black;
+	color: rgb(0, 0, 0);
   
+}
+.pesquisa-input:hover {
+	background: white;
 }
 
 .pesquisa-botao {
@@ -43,8 +46,8 @@ background: none;
 }
 
 .pesquisa:hover>.pesquisa-botao {
-	background: white;
-  border: solid 1px black;
+	background: #13aeeb;
+  	border: solid 1px black;
 }
 
 .pesquisa:hover {

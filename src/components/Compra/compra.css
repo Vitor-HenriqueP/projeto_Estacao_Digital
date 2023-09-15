@@ -13,7 +13,11 @@ button{
       justify-content: center;
       margin: 10px;
 }
-.buynow button{
+.buynow{
+    padding: 16px;
+    white-space: nowrap; 
+}
+.add{
     padding: 16px;
 }
 button:hover{

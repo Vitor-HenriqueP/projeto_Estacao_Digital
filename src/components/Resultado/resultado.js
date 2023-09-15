@@ -32,9 +32,9 @@ function ProductResult(){
         className='card-image'
         />
         <div className='Card-info'>
-          <h2 className=' card-tile'>{produto.title}</h2>
+          <h2 className=' card-title'>{produto.title}</h2>
           <h4 className='card-price'> {formatCurrency(produto.price, 'BRL')}</h4>
-          <span>{produto.title}</span>
+          <span className='card-desc'>{produto.title}</span>
           <Counter/>
           <Frete/>
           <Compra/>
