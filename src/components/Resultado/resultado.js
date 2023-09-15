@@ -37,7 +37,6 @@ function ProductResult(){
           <input type='number' placeholder='Digite seu cep'></input><button> Calcular frete</button>
           <button>Comprar agora</button>
           <button>Adicionar ao carrinho</button>
-
         </div>
     </section>
     )
