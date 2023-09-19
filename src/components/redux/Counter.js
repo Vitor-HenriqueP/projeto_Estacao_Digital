@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Counter = (props) => {
   const confirmQuantity = () => {
-    const { count } = props; // Acesse props.count
+    const { count, handleQuantityChange } = props;
     console.log(count);
-
+    handleQuantityChange(count);
     toast.success('Item salvo');
   };
 
@@ -28,11 +28,11 @@ const mapState = (state) => {
   };
 };
 
-const mapAssociate = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
     incremento: () => dispatch({ type: 'INCREMENTO' }),
     decremento: () => dispatch({ type: 'DECREMENTO' }),
   };
 };
 
-export default connect(mapState, mapAssociate)(Counter);
+export default connect(mapState, mapDispatch)(Counter);

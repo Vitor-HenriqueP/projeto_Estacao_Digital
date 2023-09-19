@@ -15,6 +15,7 @@ function Cart() {
 
   useEffect(() => {
     async function fetchCartProducts() {
+      setLoading(true); // Defina como true antes da busca
       try {
         const cartCollectionRef = collection(db, 'carrinho');
         const querySnapshot = await getDocs(cartCollectionRef);
@@ -28,9 +29,12 @@ function Cart() {
         setCartProducts(cartData);
       } catch (error) {
         console.error('Erro ao buscar produtos no carrinho:', error);
+        // Exibir notificação de erro
+        toast.error('Não foi possível carregar os itens do carrinho');
+      } finally {
+        setLoading(false); // Defina como false após a busca
       }
     }
-    setLoading(false);
     fetchCartProducts();
   }, []);
 
@@ -41,7 +45,6 @@ function Cart() {
       setCartProducts((prevProducts) => prevProducts.filter((product) => product.docId !== docId));
       console.log('Produto removido com sucesso do carrinho:', docId);
 
-      // Exibir notificação de erro informando que o item foi removido
       toast.error('Item removido do carrinho');
     } catch (error) {
       console.error('Erro ao remover produto do carrinho:', error);
@@ -52,7 +55,6 @@ function Cart() {
     try {
       const productDocRef = doc(db, 'carrinho', docId);
       await updateDoc(productDocRef, { quantidade: newQuantity });
-      // Atualize a quantidade no estado local para refletir as alterações
       setCartProducts((prevProducts) =>
         prevProducts.map((product) =>
           product.docId === docId ? { ...product, quantidade: newQuantity } : product
@@ -65,29 +67,33 @@ function Cart() {
   };
 
   return (
-    (loading && <Loading />) || (
-      <div>
-        <Link to="/">Voltar</Link>
-        <h1>Carrinho de Compras</h1>
-        <ul>
-          {cartProducts.map((product) => (
-            <div key={product.docId}>
-              <img src={product.thumbnail} alt={product.title} />
-              <span>
-                {product.title} <br />
-                <Counter // Use o componente Counter aqui
-                  quantity={product.quantidade}
-                  handleQuantityChange={(newQuantity) =>
-                    handleUpdateQuantity(product.docId, newQuantity)
-                  }
-                />
-                <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
-              </span>
-            </div>
-          ))}
-        </ul>
+    <div className='buycart'>
+      <div className='header-cart'>
+      <h2>Carrinho de Compras</h2>
+      <Link to="/"><button>Adicionar mais itens ao carrinho</button></Link>
+      
       </div>
-    )
+      {cartProducts.length === 0 ? (
+        <><h1 className='vazio'>O seu carrinho de compras está vazio!:( <br/>Continue realizando suas compras clicando no botão acima</h1>
+        </>
+      ) : (
+        cartProducts.map((product) => (
+          <div key={product.docId}>
+            <img src={product.thumbnail} alt={product.title} />
+            <span>
+              {product.title} <br />
+              <Counter
+                quantity={product.quantidade}
+                handleQuantityChange={(newQuantity) =>
+                  handleUpdateQuantity(product.docId, newQuantity)
+                }
+              />
+              <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
+            </span>
+          </div>
+        ))
+      )}
+    </div>
   );
 }
 

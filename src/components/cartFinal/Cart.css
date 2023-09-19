@@ -1,35 +1,40 @@
-button{
-    background: #13aeeb;
-      border-radius: 10px;
-      color: #fff;
-      border: 1px solid black;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px;
-      white-space: nowrap; 
+.buycart{
+  padding: 120px 20px 50px;
+  display: grid;
+  align-items: center;
+  width: 100%;
 }
-button:hover{
-    background: #1293e9;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: 0.5s;
+.buycart button{
+  padding: 5px;
+  margin: 3px;
+  border-radius: 5px;
 }
-input{
-    background: rgb(49, 49, 49);
-      border-radius: 10px;
-      color: #fff;
-      border: 1px solid #13aeeb;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px;
-      padding: 3px;
-  }
-  input:hover{
-    background: rgb(63, 62, 62);
-    opacity: 0.8;
-    transition: 0.5s;
+.buycart button:hover{
+  background: #1612e9;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.5s;
+}
+.header-cart{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-content: center;
+}
+.vazio{
+  border: solid 3px black;
+  background-color: #313131;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 100px;
+  color: white;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  text-align:center;
 }
