@@ -5,10 +5,13 @@ import { db } from '../../services/firebaseConfig';
 import Counter from '../redux/Counter';
 import { Link } from 'react-router-dom';
 import Loading from '../Loading/Loading';
-import './Cart.css'
+import './Cart.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
-  const {loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading } = useContext(AppContext);
 
   useEffect(() => {
     async function fetchCartProducts() {
@@ -24,7 +27,6 @@ function Cart() {
 
         setCartProducts(cartData);
       } catch (error) {
-        
         console.error('Erro ao buscar produtos no carrinho:', error);
       }
     }
@@ -38,6 +40,9 @@ function Cart() {
       await deleteDoc(productDocRef);
       setCartProducts((prevProducts) => prevProducts.filter((product) => product.docId !== docId));
       console.log('Produto removido com sucesso do carrinho:', docId);
+
+      // Exibir notificação de erro informando que o item foi removido
+      toast.error('Item removido do carrinho');
     } catch (error) {
       console.error('Erro ao remover produto do carrinho:', error);
     }
@@ -60,26 +65,28 @@ function Cart() {
   };
 
   return (
-  (loading && <Loading /> ) || (
-    <div>
+    (loading && <Loading />) || (
+      <div>
         <Link to="/">Voltar</Link>
-      <h1>Carrinho de Compras</h1>
-      <ul>
-        {cartProducts.map((product) => (
-          <div key={product.docId}>
-            <img src={product.thumbnail}/>
-            <span>
-              {product.title} <br />
-              <Counter // Use o componente Counter aqui
-                quantity={product.quantidade} // Passe a quantidade do produto como prop
-                handleQuantityChange={(newQuantity) => handleUpdateQuantity(product.docId, newQuantity)} // Passe a função de atualização de quantidade
-              />
-              <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
-            </span>
-          </div>
-        ))}
-      </ul>
-    </div>
+        <h1>Carrinho de Compras</h1>
+        <ul>
+          {cartProducts.map((product) => (
+            <div key={product.docId}>
+              <img src={product.thumbnail} alt={product.title} />
+              <span>
+                {product.title} <br />
+                <Counter // Use o componente Counter aqui
+                  quantity={product.quantidade}
+                  handleQuantityChange={(newQuantity) =>
+                    handleUpdateQuantity(product.docId, newQuantity)
+                  }
+                />
+                <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
+              </span>
+            </div>
+          ))}
+        </ul>
+      </div>
     )
   );
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './counter.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Counter = (props) => {
   const confirmQuantity = () => {
     const { count } = props; // Acesse props.count
     console.log(count);
 
-    // Se você tiver a função handleQuantityChange, chame-a aqui
-    // handleQuantityChange(count);
+    toast.success('Item salvo');
   };
 
   return (
