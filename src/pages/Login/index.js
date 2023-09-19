@@ -1,36 +1,43 @@
-import { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth"; // Importe useSignInWithEmailAndPassword
+import { signOut } from "firebase/auth"; // Importe signOut
 import arrowImg from "../../assets/arrow.svg";
 import { auth } from "../../services/firebaseConfig";
 
 import "./login.css";
-import Home from "../Home/Home";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-
   function handleSignIn(e) {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    signInWithEmailAndPassword(email, password).then(() => {
+      // Redirecione após o login bem-sucedido
+      navigate("/");
+    });
   }
 
-  if (loading) {
-    return <p>carregando...</p>;
+  function handleSignOut() {
+    signOut(auth)
+      .then(() => {
+        // O usuário foi desconectado com sucesso.
+        // Você pode adicionar redirecionamento ou outras ações aqui.
+        console.log("Usuário desconectado com sucesso.");
+      })
+      .catch((error) => {
+        console.error("Erro ao realizar o logout:", error);
+      });
   }
-  if (user) {
-   return <Home/>
-  
-  }
+
   return (
     <div className="cont">
       <header className="">
-        <h2>Por favor digite suas informações de login</h2>
+        <h2>Por favor, digite suas informações de login</h2>
       </header>
 
       <form>
@@ -56,14 +63,21 @@ export function Login() {
           />
         </div>
 
-
-        <button className="button" onClick={handleSignIn}>
-          Entrar <img src={arrowImg} alt="->" />
-        </button>
-        <div className="footer">
-          <p>Você não tem uma conta?</p>
-          <Link to="/register">Crie a sua conta aqui</Link>
-        </div>
+        {user ? (
+          <button className="button" onClick={handleSignOut}>
+            Desconectar
+          </button>
+        ) : (
+          <>
+            <button className="button" onClick={handleSignIn}>
+              Entrar <img src={arrowImg} alt="->" />
+            </button>
+            <div className="footer">
+              <p>Você não tem uma conta?</p>
+              <Link to="/register">Crie a sua conta aqui</Link>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );

@@ -6,9 +6,11 @@ const Frete = () => {
   const { register, handleSubmit, setValue } = useForm();
   const [addressInfo, setAddressInfo] = useState(null);
   const [freteGratis, setFreteGratis] = useState(false); // Estado para controlar o frete grátis
+  const [freteCalculado, setFreteCalculado] = useState(false); // Estado para controlar a exibição do valor do frete
 
   const onSubmit = (e) => {
     console.log(e);
+    setFreteCalculado(true); // Ativar a exibição do valor do frete quando o botão é acionado
   };
 
   const checkCEP = (e) => {
@@ -41,14 +43,21 @@ const Frete = () => {
         <button type='submit'>Calcular frete</button>
       </form>
 
-      {}
       {addressInfo && (
         <div>
-          <p>Rua: {addressInfo.logradouro},Bairro: {addressInfo.bairro}, Cidade: {addressInfo.localidade}, Estado: {addressInfo.uf}</p>
+          <p>
+            Rua: {addressInfo.logradouro}, Bairro: {addressInfo.bairro}, Cidade: {addressInfo.localidade}, Estado: {addressInfo.uf}
+          </p>
         </div>
       )}
 
-      {freteGratis && <h4>Frete Grátis !</h4>}
+      {freteCalculado && (
+        freteGratis ? (
+          <h4>Frete Grátis!</h4>
+        ) : (
+          <h4>Frete calculado em {30.0.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>
+        )
+      )}
     </div>
   );
 };

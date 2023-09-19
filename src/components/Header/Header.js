@@ -15,7 +15,7 @@ function Header() {
       <Link to = "/login" className='teste'>      <BiUser size={25} />
 </Link>
         <Pesquisa />
-        <CartButton />
+        <Link to="/cart"><CartButton /></Link>
       </div>
     </header>
   );
